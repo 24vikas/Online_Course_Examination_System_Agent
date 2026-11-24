@@ -12,7 +12,7 @@ import nbformat as nb
 
 from examples import EXAMPLES
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 md, code = nb.v4.new_markdown_cell, nb.v4.new_code_cell
 PACKAGES = ("nbformat", "nbclient", "ipykernel", "mcp", "langgraph")
 FLOWS = [
@@ -83,7 +83,7 @@ def main(records):
     failures = 0
     for number in EXAMPLES:
         name = f"LAB_{number:02d}"
-        folder = f"Assignments/Assignment_{number:02d}" if number <= 12 else f"Supplementary_Labs/Lab_{number}"
+        folder = f"Assignments/Assignment_{number:02d}" if number <= 12 else f"Assignments/Supplementary_Labs/Lab_{number}"
         path = ROOT / folder / f"{name}.ipynb"
         notebook = build(number, (records / f"{name}.md").read_text())
         nb.validate(notebook)

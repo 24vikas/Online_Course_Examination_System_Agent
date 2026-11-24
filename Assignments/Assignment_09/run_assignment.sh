@@ -4,7 +4,7 @@
 
 set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-CODE_DIR="${SCRIPT_DIR}/../../Course Project/Source_Code"
+CODE_DIR="${SCRIPT_DIR}/../../Course-Project/Source_Code"
 DEV_DIR="/mnt/data/Agentic_AI_project/Online_Examination_System_PHASE25"
 
 echo "============================================================"
