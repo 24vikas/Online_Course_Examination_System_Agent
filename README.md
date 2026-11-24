@@ -71,6 +71,6 @@ python3 -m venv .venv
 .venv/bin/python Notebook_Tooling/execute.py Course_Manual/individual_labs
 ```
 
-Lab 05 starts a local MCP stdio server. Lab 09 requires HTTPS access to docs.python.org. The recorded run executed 42 code cells and passed 40 checks across 14 notebooks. Lab 06 passed its educational checks and remains partial because the official OpenCLA runtime was unavailable.
+Lab 05 starts a local MCP stdio server. Lab 09 requires HTTPS access to docs.python.org. The recorded run executed 42 code cells and passed 43 checks across 14 notebooks. Lab 06 passed its educational and Bubblewrap checks and remains partial because the official OpenCLA runtime was unavailable.
 
 The AURA application source uses npm workspaces. In `Course Project/Source_Code`, install with `npm ci` and use `npm run typecheck` for workspace checks. Full demonstration requires configured local services and disposable accounts. Follow the demonstration guide and set private configuration outside version control. Full application acceptance was outside the notebook run.
