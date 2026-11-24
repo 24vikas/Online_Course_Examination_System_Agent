@@ -1,0 +1,12 @@
+# BAAI/bge-m3 Self-Hosted Embedding Worker Dependencies
+# Pinned to specific stable releases
+
+--extra-index-url https://download.pytorch.org/whl/cpu
+fastapi==0.115.8
+uvicorn[standard]==0.34.0
+pydantic==2.10.6
+sentence-transformers==3.4.1
+torch==2.6.0+cpu
+transformers==4.49.0
+numpy>=1.26.0,<2.0.0
+

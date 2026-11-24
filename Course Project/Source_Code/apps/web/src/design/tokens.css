@@ -1,0 +1,50 @@
+/* Institutional Examination System Design Tokens - KLE Technological University */
+:root {
+  /* Core Institutional Palette */
+  --bg: #F8F8F7;
+  --surface: #FFFFFF;
+  --border: #E6E4E4;
+  --border-subtle: #ECEAE9;
+
+  --text: #161616;
+  --text-muted: #686868;
+  --text-subtle: #8E8E8E;
+
+  --primary: #981B2B;
+  --primary-hover: #751622;
+  --primary-tint: rgba(152, 27, 43, 0.08);
+
+  --crimson: #981B2B;
+  --crimson-dark: #751622;
+  --near-black: #161616;
+  --paper: #FFFFFF;
+
+  /* Semantic Status Tokens */
+  --amber: #B45309;
+  --amber-bg: #FEF3C7;
+
+  --danger: #981B2B;
+  --danger-bg: #FEF2F2;
+
+  --success: #15803D;
+  --success-bg: #F0FDF4;
+
+  --info: #1D4ED8;
+  --info-bg: #DBEAFE;
+
+  /* Geometry & Scaling */
+  --radius-card: 10px;
+  --radius-btn: 6px;
+  --radius-chip: 999px;
+  --shadow-subtle: 0 1px 2px rgba(22, 22, 22, 0.04);
+  --shadow-elevated: 0 4px 6px -1px rgba(22, 22, 22, 0.06), 0 2px 4px -2px rgba(22, 22, 22, 0.04);
+
+  /* Layout Constants */
+  --sidebar-width: 256px;
+  --sidebar-width-collapsed: 56px;
+  --header-height: 52px;
+
+  /* Typography */
+  --font-serif: "Times New Roman", Times, Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}

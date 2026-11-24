@@ -1,0 +1,23 @@
+{
+  "name": "@exam-system/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "test": "node --test --experimental-strip-types tests/*.test.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@exam-system/audit": "*",
+    "@exam-system/contracts": "*",
+    "@exam-system/eligibility": "*",
+    "@exam-system/exam-core": "*",
+    "@exam-system/tenant-context": "*",
+    "@modelcontextprotocol/sdk": "1.32.2"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  }
+}

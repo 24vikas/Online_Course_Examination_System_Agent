@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AURA Proctor Companion — KLE Technological University</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: #0b1120;
+      color: #f1f5f9;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      user-select: none;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+    header {
+      background-color: #0f172a;
+      border-bottom: 1px solid #1e293b;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .badge-kle {
+      background: #dc2626;
+      color: #fef08a;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      letter-spacing: 0.5px;
+    }
+    .app-title {
+      font-weight: 700;
+      font-size: 14px;
+      color: #f8fafc;
+    }
+    .course-sub {
+      color: #94a3b8;
+      font-size: 12px;
+      margin-left: 6px;
+    }
+    .status-badge {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      padding: 4px 10px;
+      border-radius: 12px;
+      background: #1e293b;
+      color: #94a3b8;
+      border: 1px solid #334155;
+    }
+    .status-badge.not-connected { background: #334155; color: #94a3b8; }
+    .status-badge.device-check { background: #0369a1; color: #bae6fd; }
+    .status-badge.calibrating { background: #b45309; color: #fde68a; }
+    .status-badge.ready { background: #047857; color: #a7f3d0; }
+    .status-badge.monitoring { background: #059669; color: #ecfdf5; border-color: #10b981; animation: pulse-green 2s infinite; }
+    .status-badge.warning { background: #b91c1c; color: #fef2f2; border-color: #ef4444; }
+
+    @keyframes pulse-green {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+      70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+
+    /* Handshake Bar */
+    .handshake-bar {
+      background: #111827;
+      border-bottom: 1px solid #1f2937;
+      padding: 8px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 12px;
+    }
+    .handshake-bar input {
+      background: #1f2937;
+      border: 1px solid #374151;
+      color: #f9fafb;
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-family: monospace;
+    }
+    .btn {
+      background: #2563eb;
+      color: #ffffff;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 12px;
+      transition: background 0.15s;
+    }
+    .btn:hover { background: #1d4ed8; }
+    .btn.btn-secondary { background: #374151; color: #d1d5db; }
+    .btn.btn-secondary:hover { background: #4b5563; }
+    .btn.btn-danger { background: #b91c1c; }
+    .btn.btn-danger:hover { background: #991b1b; }
+
+    /* Main Workspace Layout */
+    .workspace {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* Left Status Rail */
+    .rail-left {
+      width: 250px;
+      background: #0f172a;
+      border-right: 1px solid #1e293b;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      overflow-y: auto;
+      flex-shrink: 0;
+    }
+    .rail-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #64748b;
+      margin-bottom: 4px;
+    }
+    .metric-card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 6px;
+      padding: 10px;
+    }
+    .metric-label {
+      font-size: 11px;
+      color: #94a3b8;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 4px;
+    }
+    .metric-value {
+      font-size: 13px;
+      font-weight: 700;
+      color: #f8fafc;
+      font-family: monospace;
+    }
+    .meter-bar-track {
+      background: #090d16;
+      height: 6px;
+      border-radius: 3px;
+      overflow: hidden;
+      margin-top: 6px;
+    }
+    .meter-bar-fill {
+      background: #10b981;
+      height: 100%;
+      width: 0%;
+      transition: width 0.1s ease-out;
+    }
+
+    /* Central Viewport */
+    .viewport-center {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #020617;
+      padding: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    .camera-frame-wrap {
+      position: relative;
+      width: 100%;
+      max-width: 720px;
+      aspect-ratio: 16 / 9;
+      background: #000000;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+    }
+    video#webcamVideo {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scaleX(-1); /* Mirrored natural view */
+    }
+    canvas#overlayCanvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+    .viewport-controls {
+      display: flex;
+      gap: 12px;
+      margin-top: 14px;
+      align-items: center;
+    }
+
+    /* Right Incident Rail */
+    .rail-right {
+      width: 320px;
+      background: #0f172a;
+      border-left: 1px solid #1e293b;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .incident-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .incident-count-chip {
+      background: #334155;
+      color: #f8fafc;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 10px;
+    }
+    .incident-scroll {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding-right: 2px;
+    }
+    .event-card {
+      background: #1e293b;
+      border-left: 3px solid #64748b;
+      border-radius: 0 6px 6px 0;
+      padding: 8px 10px;
+      font-size: 11px;
+      transition: transform 0.15s;
+    }
+    .event-card.severity-high { border-left-color: #ef4444; }
+    .event-card.severity-med { border-left-color: #f59e0b; }
+    .event-card.severity-info { border-left-color: #3b82f6; }
+    .event-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 3px;
+    }
+    .event-type {
+      font-weight: 700;
+      color: #f1f5f9;
+      font-family: monospace;
+    }
+    .event-time {
+      color: #64748b;
+      font-size: 10px;
+    }
+    .event-meta {
+      color: #94a3b8;
+      font-size: 10px;
+      line-height: 1.3;
+    }
+
+    /* Calibration Overlay Modal */
+    .calibration-modal {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(2, 6, 23, 0.95);
+      z-index: 50;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .calib-box {
+      width: 100%;
+      max-width: 600px;
+      text-align: center;
+    }
+    canvas#calibCanvas {
+      width: 100%;
+      height: 280px;
+      background: #090d16;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      margin: 16px 0;
+      cursor: crosshair;
+    }
+
+    /* Privacy Banner */
+    .privacy-footer {
+      background: #020617;
+      border-top: 1px solid #1e293b;
+      padding: 6px 20px;
+      font-size: 11px;
+      color: #64748b;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .privacy-dot {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #10b981;
+      margin-right: 6px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="brand-wrap">
+      <span class="badge-kle">KLE TECH</span>
+      <span class="app-title">AURA Proctor Companion</span>
+      <span class="course-sub">26ECAC401 — Agentic AI (Team AURA)</span>
+      <span id="pairedCandidateLabel" style="display: none; padding: 3px 8px; background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.4); border-radius: 4px; font-size: 11px; color: #38bdf8; font-weight: 600; margin-left: 10px;"></span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <label for="cameraSelect" style="font-size: 11px; color: #94a3b8; font-weight: 600;">Camera:</label>
+      <select id="cameraSelect" style="background: #1e293b; border: 1px solid #334155; color: #f8fafc; padding: 4px 8px; border-radius: 4px; font-size: 11px; max-width: 250px;">
+        <option value="">Auto-Detect (/dev/video0)</option>
+      </select>
+      <div id="statusBadge" class="status-badge not-connected">NOT_CONNECTED</div>
+    </div>
+  </header>
+
+  <!-- Handshake & Pairing Bar -->
+  <div class="handshake-bar">
+    <span>Exam Host:</span>
+    <input id="inpServerUrl" type="text" value="http://127.0.0.1:33253" style="width: 170px;" />
+    <span>Attempt ID:</span>
+    <input id="inpAttemptId" type="text" placeholder="Attempt UUID" style="width: 250px;" />
+    <span>Pairing PIN:</span>
+    <input id="inpPin" type="text" placeholder="8-digit PIN" style="width: 110px; text-align: center; font-weight: bold; letter-spacing: 1px;" />
+    <button id="btnConnect" class="btn">Pair & Start Monitor</button>
+    <button id="btnPreflight" class="btn btn-secondary">Run Diagnostics</button>
+  </div>
+
+  <!-- Workspace 3-Column Layout -->
+  <div class="workspace">
+    <!-- Left Status Rail -->
+    <aside class="rail-left">
+      <div class="rail-title">Edge Telemetry Rail</div>
+
+      <div class="metric-card">
+        <div class="metric-label">
+          <span>Camera Hardware</span>
+          <span id="camType" style="color: #10b981;">DETECTING</span>
+        </div>
+        <div class="metric-value" id="camDevice">Integrated Camera</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-label">
+          <span>Microphone & VAD</span>
+          <span id="vadState" style="color: #94a3b8;">SILENCE</span>
+        </div>
+        <div class="metric-value" id="micDevice">DMIC Stereo</div>
+        <div class="meter-bar-track">
+          <div id="audioMeterBar" class="meter-bar-fill"></div>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-label">
+          <span>Identity Continuity</span>
+          <span id="identityStatus" style="color: #10b981;">VERIFIED</span>
+        </div>
+        <div class="metric-value" id="identityScore">Match: 97.4% (Kabsch OK)</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-label">
+          <span>Face Presence</span>
+          <span id="facePresenceTag" style="color: #10b981;">1 FACE</span>
+        </div>
+        <div class="metric-value" id="faceConfidence">Conf: 98.4%</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-label">
+          <span>Head Pose 3D</span>
+          <span id="headPoseStatus" style="color: #10b981;">NORMAL</span>
+        </div>
+        <div class="metric-value" id="headPoseAngles">P: -2.1° Y: +1.4° R: 0.8°</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-label">
+          <span>Head Position</span>
+          <span id="headPositionTag" style="color: #10b981;">CENTER</span>
+        </div>
+        <div class="metric-value" id="headPositionDetail">Forward Facing</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-label">
+          <span>Gaze Direction</span>
+          <span id="gazeStatus" style="color: #10b981;">FORWARD</span>
+        </div>
+        <div class="metric-value" id="gazeVector">Forward Focused</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-label">
+          <span>Last Proctor Incident</span>
+          <span id="lastEventTime" style="color: #94a3b8;">--:--:--</span>
+        </div>
+        <div class="metric-value" id="lastEventLabel" style="font-size: 11px; color: #f8fafc;">None (Normal)</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-label">
+          <span>SEB / Lockdown</span>
+          <span id="lockdownStatus" style="color: #38bdf8;">ACTIVE</span>
+        </div>
+        <div class="metric-value" id="lockdownDetail">Single Display / Monitored</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-label">
+          <span>Server Telemetry Latency</span>
+          <span id="pingTag" style="color: #10b981;">OK</span>
+        </div>
+        <div class="metric-value" id="pingMs">24 ms (HTTP/SSE)</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-label">
+          <span>Vision Inference & Model Latency</span>
+          <span id="trackerModelTag" style="color: #10b981;">MEDIAPIPE</span>
+        </div>
+        <div class="metric-value" id="trackerLatency">Latency: -- ms | Seq: 0</div>
+      </div>
+
+      <div class="metric-card">
+        <div class="metric-label">
+          <span>Companion Preview Relay</span>
+          <span id="relayStatus" style="color: #10b981;">ACTIVE</span>
+        </div>
+        <div class="metric-value" id="relayEndpoint">127.0.0.1:41789/preview</div>
+      </div>
+    </aside>
+
+    <!-- Central Viewport -->
+    <main class="viewport-center">
+      <div id="camAlertBanner" style="display: none; width: 100%; max-width: 720px; background: #7f1d1d; border: 1px solid #ef4444; color: #fee2e2; padding: 10px 14px; border-radius: 6px; font-size: 12px; margin-bottom: 12px; font-weight: 600; text-align: center;">
+      </div>
+
+      <div id="activeIncidentBanner" style="display: none; width: 100%; max-width: 720px; background: rgba(234, 179, 8, 0.2); border: 1px solid #eab308; color: #fef08a; padding: 8px 14px; border-radius: 6px; font-size: 12px; margin-bottom: 10px; font-weight: 600; text-align: center;">
+        <span>Observation Alert: </span><span id="activeIncidentText">Sustained Head Deviation</span>
+      </div>
+
+      <div class="camera-frame-wrap" id="cameraWrap">
+        <video id="webcamVideo" autoplay muted playsinline></video>
+        <canvas id="overlayCanvas"></canvas>
+      </div>
+
+      <div class="viewport-controls">
+        <button id="btnCalibrateNeutral" class="btn">Calibrate Neutral Pose</button>
+        <button id="btnCalibrate" class="btn btn-secondary">5-Point Gaze Calib</button>
+        <button id="btnStop" class="btn btn-danger">Halt Monitoring</button>
+      </div>
+    </main>
+
+    <!-- Right Incident Stream Rail -->
+    <aside class="rail-right">
+      <div class="incident-header">
+        <span class="rail-title" style="margin: 0;">Live Incident Feed</span>
+        <span class="incident-count-chip" id="incidentCountChip">0 EVENTS</span>
+      </div>
+
+      <div class="incident-scroll" id="incidentScroll">
+        <!-- Event cards injected dynamically -->
+        <div class="event-card severity-info">
+          <div class="event-top">
+            <span class="event-type">CLIENT_READY</span>
+            <span class="event-time">Now</span>
+          </div>
+          <div class="event-meta">
+            Proctor Companion v1.0.0 initialized. Ready for candidate pairing.
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Calibration Modal (Hidden by default) -->
+  <div id="calibModal" class="calibration-modal" style="display: none;">
+    <div class="calib-box">
+      <h3 style="color: #f8fafc; margin-bottom: 8px;">Interactive 5-Point Display Gaze Calibration</h3>
+      <p style="color: #94a3b8; font-size: 13px;">
+        Look directly at the animated pulsing gold target with your eyes. Calibration establishes your screen coordinate boundaries.
+      </p>
+      <canvas id="calibCanvas"></canvas>
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <span id="calibTargetLabel" style="color: #38bdf8; font-size: 13px; font-weight: 600;">Target 1 of 5 (Center)</span>
+        <button id="btnFinishCalib" class="btn">Save & Resume Monitoring</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="privacy-footer">
+    <div>
+      <span class="privacy-dot"></span>
+      <span>Local Biometric Privacy Mode Active: Iris & pose inferred on device. Raw camera stream is never uploaded.</span>
+    </div>
+    <div>
+      <span>KLE Technological University — Institutional Proctor Subsystem</span>
+    </div>
+  </footer>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "@mediapipe/tasks-vision": "../libs/vision_bundle.mjs"
+    }
+  }
+  </script>
+  <script type="module" src="renderer.js"></script>
+</body>
+</html>

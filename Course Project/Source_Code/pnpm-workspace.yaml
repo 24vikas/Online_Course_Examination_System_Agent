@@ -1,0 +1,7 @@
+packages:
+  - apps/*
+  - packages/*
+  - services/api
+  - services/exam-core
+  - services/eligibility
+  - services/ingestion-worker

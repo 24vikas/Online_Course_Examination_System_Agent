@@ -1,0 +1,23 @@
+{
+  "name": "online-examination-system",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Multi-tenant, role-based Online Examination System Agent",
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "services/api",
+    "services/exam-core",
+    "services/eligibility",
+    "services/ingestion-worker"
+  ],
+  "scripts": {
+    "test": "npm run test --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.65.1",
+    "typescript": "^5.4.5"
+  }
+}

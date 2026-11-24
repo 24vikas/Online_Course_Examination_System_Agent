@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "../design/tokens.css";
+
+:root {
+  --font-serif: 'Times New Roman', Times, Georgia, serif;
+  --font-sans: 'Times New Roman', Times, Georgia, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+body {
+  background-color: var(--bg, #F8F8F7);
+  color: var(--text, #161616);
+  font-family: var(--font-serif);
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}

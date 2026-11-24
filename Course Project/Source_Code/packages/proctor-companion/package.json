@@ -1,0 +1,28 @@
+{
+  "name": "@exam-system/proctor-companion",
+  "version": "1.0.0",
+  "description": "Host-Based Proctor Companion Client for Online Examination System",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "aura-proctor-cli": "./dist/cli-runner.js"
+  },
+  "scripts": {
+    "build": "tsc -b",
+    "test": "node --test --experimental-strip-types tests/*.test.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "proctoring",
+    "telemetry",
+    "mediapipe",
+    "gaze-calibration",
+    "seb"
+  ],
+  "author": "Team AURA (Team 5), KLE Technological University",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@mediapipe/tasks-vision": "^1.2.3"
+  }
+}

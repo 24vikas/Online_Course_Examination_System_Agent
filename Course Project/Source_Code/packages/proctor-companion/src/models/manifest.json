@@ -1,0 +1,13 @@
+{
+  "name": "MediaPipe Face Landmarker Task",
+  "version": "v1-float16",
+  "file": "face_landmarker.task",
+  "sizeBytes": 3758596,
+  "sha256": "64184e229b263107bc2b804c6625db1341ff2bb731874b0bcc2fe6544e0bc9ff",
+  "license": "Apache-2.0",
+  "provider": "Google LLC / MediaPipe Tasks",
+  "upstreamReference": "third_party/references/examguard-local/src/models/face_landmarker.task",
+  "landmarksCount": 478,
+  "faceMeshCount": 468,
+  "irisLandmarksCount": 10
+}

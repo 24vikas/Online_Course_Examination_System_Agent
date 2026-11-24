@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+NODE_EXEC="${NODE_EXEC:-node}"
+exec "$NODE_EXEC" "$SCRIPT_DIR/../dist/cli-runner.js" "$@"
