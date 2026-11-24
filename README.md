@@ -31,6 +31,29 @@ The implementation combines a web examination runner, PostgreSQL, policy checks,
 
 Next.js serves the role-based portals. PostgreSQL holds the exam schedule, attempts and release state, and OPA evaluates eligibility. Docling parses course PDFs, BGE-M3 supports retrieval, and LangGraph coordinates the syllabus-grounded drafting workflow. The desktop companion reports proctoring status. Bubblewrap isolates coding execution in the engineering environment.
 
+```mermaid
+flowchart LR
+    Faculty["Faculty portal"] --> Web["Next.js application and APIs"]
+    COE["Controller of Examinations portal"] --> Web
+    Student["Student exam portal"] --> Web
+    Invigilator["Invigilator portal"] --> Web
+    Companion["Desktop proctor companion"] -->|Proctoring signals| Web
+
+    Web -->|Eligibility check| OPA["Open Policy Agent"]
+    Web -->|Schedules, attempts, grades and release state| DB[("PostgreSQL + pgvector")]
+    Web -->|Coding submissions| Judge["Bubblewrap coding judge"]
+
+    subgraph Drafting["Syllabus-grounded drafting"]
+        Docling["Docling PDF extraction"] --> BGE["BGE-M3 embeddings"]
+        Graph["LangGraph drafting workflow"]
+    end
+
+    Web -->|Syllabus PDF| Docling
+    BGE -->|Index course passages| DB
+    DB -->|Retrieve course evidence| Graph
+    Graph -->|Cited drafts for faculty review| Web
+```
+
 | Role | Workflow |
 | --- | --- |
 | Faculty | Upload course material, verify citations, review question drafts, submit blueprints and grade responses |
