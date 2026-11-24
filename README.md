@@ -32,26 +32,58 @@ The implementation combines a web examination runner, PostgreSQL, policy checks,
 Next.js serves the role-based portals. PostgreSQL holds the exam schedule, attempts and release state, and OPA evaluates eligibility. Docling parses course PDFs, BGE-M3 supports retrieval, and LangGraph coordinates the syllabus-grounded drafting workflow. The desktop companion reports proctoring status. Bubblewrap isolates coding execution in the engineering environment.
 
 ```mermaid
-flowchart LR
-    Faculty["Faculty portal"] --> Web["Next.js application and APIs"]
-    COE["Controller of Examinations portal"] --> Web
-    Student["Student exam portal"] --> Web
-    Invigilator["Invigilator portal"] --> Web
-    Companion["Desktop proctor companion"] -->|Proctoring signals| Web
-
-    Web -->|Eligibility check| OPA["Open Policy Agent"]
-    Web -->|Schedules, attempts, grades and release state| DB[("PostgreSQL + pgvector")]
-    Web -->|Coding submissions| Judge["Bubblewrap coding judge"]
-
-    subgraph Drafting["Syllabus-grounded drafting"]
-        Docling["Docling PDF extraction"] --> BGE["BGE-M3 embeddings"]
-        Graph["LangGraph drafting workflow"]
+flowchart TD
+    subgraph Clients["1. Institutional Client Tier"]
+        COE["COE Administrator<br/>(/coe)"]
+        Faculty["Course Faculty<br/>(/lecturer)"]
+        Student["Candidate / Student<br/>(/student)"]
+        Invigilator["Live Invigilator<br/>(/invigilator/live)"]
     end
 
-    Web -->|Syllabus PDF| Docling
-    BGE -->|Index course passages| DB
-    DB -->|Retrieve course evidence| Graph
-    Graph -->|Cited drafts for faculty review| Web
+    subgraph Core["2. Authoritative Core & Gateway (Deterministic Authority)"]
+        Web["Next.js 14 Web Application & APIs<br/>(Port 33255 · App Router & BFF)"]
+        OPA["Open Policy Agent (OPA)<br/>(Port 18181 · Rego Policy Engine)"]
+        DB[("PostgreSQL 16 + pgvector<br/>(Port 54322 · RLS & Server Clocks)")]
+        Reaper["Heartbeat Reaper & Core Engine<br/>(15s Proctor Timeout & State Machine)"]
+    end
+
+    subgraph Sandboxes["3. Execution & Proctoring Sandboxes"]
+        Companion["Desktop Proctor Companion<br/>(Port 4200 · MediaPipe WASM)"]
+        Judge["Bubblewrap Coding Sandbox<br/>(Linux bwrap --unshare-all)"]
+    end
+
+    subgraph AssistiveAI["4. Assistive Ingestion & Drafting Pipeline (Advisory Only)"]
+        Docling["Docling PDF Extraction<br/>(Port 5001 · Parser & OCR)"]
+        BGE["BGE-M3 Dense Embedder<br/>(Port 8002 · 1024-d Vectors)"]
+        LangGraph["LangGraph Drafting Workflow<br/>(Citation-Grounded Draft Questions)"]
+        HumanGate{{"Human-in-the-Loop<br/>Faculty Approval Gate"}}
+    end
+
+    %% Client Interactions
+    COE -->|Blueprint approval & result release| Web
+    Faculty -->|Syllabus upload & draft approval| Web
+    Student -->|Exam attempt & code submission| Web
+    Student -.->|Local pairing & camera/audio feed| Companion
+    Invigilator -->|Live telemetry monitoring| Web
+
+    %% Proctoring & Sandboxing
+    Companion -->|5s telemetry heartbeats| Web
+    Web -->|Heartbeat tracking| Reaper
+    Reaper -->|Update session status / timeout flag| DB
+    Web -->|Untrusted student code| Judge
+    Judge -->|Execution verdicts & test scores| Web
+
+    %% Deterministic Policy & Storage
+    Web <-->|Strict eligibility check & reason codes| OPA
+    Web <-->|Authoritative state, server timers & RLS data| DB
+
+    %% Assistive AI Pipeline
+    Web -->|Syllabus PDF documents| Docling
+    Docling -->|Structural markdown & passage chunks| BGE
+    BGE -->|Index 1024-d passage embeddings| DB
+    DB -->|Retrieve syllabus evidence via vector search| LangGraph
+    LangGraph -->|Generate cited draft questions| HumanGate
+    HumanGate -->|Approved questions committed to bank| Web
 ```
 
 | Role | Workflow |
