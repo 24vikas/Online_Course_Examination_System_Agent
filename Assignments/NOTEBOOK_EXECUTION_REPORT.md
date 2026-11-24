@@ -1,0 +1,20 @@
+# Notebook execution report
+
+Python 3.14.4 · nbformat 5.11.1, nbclient 0.11.0, ipykernel 7.4.0, mcp 1.30.0, langgraph 1.2.24
+
+| Notebook | Code cells | Executed | Passed checks | Failures | Duration (s) | Integration limits | Status |
+|---|---:|---:|---:|---:|---:|---|---|
+| [LAB_01](../Assignments/Assignment_01/LAB_01.ipynb) | 3 | 3 | 3 | 0 | 0.43 | None for the exercised scope | PASS |
+| [LAB_02](../Assignments/Assignment_02/LAB_02.ipynb) | 3 | 3 | 3 | 0 | 0.44 | None for the exercised scope | PASS |
+| [LAB_03](../Assignments/Assignment_03/LAB_03.ipynb) | 3 | 3 | 4 | 0 | 0.48 | None for the exercised scope | PASS |
+| [LAB_04](../Assignments/Assignment_04/LAB_04.ipynb) | 3 | 3 | 3 | 0 | 0.55 | None for the exercised scope | PASS |
+| [LAB_05](../Assignments/Assignment_05/LAB_05.ipynb) | 3 | 3 | 3 | 0 | 1.21 | None for the exercised scope | PASS |
+| [LAB_06](../Assignments/Assignment_06/LAB_06.ipynb) | 3 | 3 | 3 | 0 | 0.43 | official OpenCLA runtime acceptance. Educational dispatcher only. | PARTIAL |
+| [LAB_07](../Assignments/Assignment_07/LAB_07.ipynb) | 3 | 3 | 2 | 0 | 0.92 | None for the exercised scope | PASS |
+| [LAB_08](../Assignments/Assignment_08/LAB_08.ipynb) | 3 | 3 | 2 | 0 | 0.82 | None for the exercised scope | PASS |
+| [LAB_09](../Assignments/Assignment_09/LAB_09.ipynb) | 3 | 3 | 2 | 0 | 1.14 | None for the exercised scope | PASS |
+| [LAB_10](../Assignments/Assignment_10/LAB_10.ipynb) | 3 | 3 | 4 | 0 | 0.43 | None for the exercised scope | PASS |
+| [LAB_11](../Assignments/Assignment_11/LAB_11.ipynb) | 3 | 3 | 2 | 0 | 0.56 | None for the exercised scope | PASS |
+| [LAB_12](../Assignments/Assignment_12/LAB_12.ipynb) | 3 | 3 | 3 | 0 | 0.48 | None for the exercised scope | PASS |
+| [LAB_13](../Supplementary_Labs/Lab_13/LAB_13.ipynb) | 3 | 3 | 3 | 0 | 0.43 | None for the exercised scope | PASS |
+| [LAB_14](../Supplementary_Labs/Lab_14/LAB_14.ipynb) | 3 | 3 | 3 | 0 | 0.42 | None for the exercised scope | PASS |
