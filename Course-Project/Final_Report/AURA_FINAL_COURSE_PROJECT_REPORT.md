@@ -12,9 +12,12 @@
 ---
 
 ### PROJECT IDENTITY & ROSTER
-- **Team Identification:** Team 5 (Team AURA)
+- **Team Identification:** Team 5 (Division 7) — Team AURA
 - **Lead Student Author & Systems Architect:** Vikas Umesh Badiger (USN: `01FE23BCI094`, Email: `01fe23bci094@kletech.ac.in`)
-- **Co-Team Members:** [TEAM MEMBER ROSTER CONFIRMATION REQUIRED — TO CONFIRM]
+- **Co-Team Members:**
+  - Sujith Roy (USN: `01FE23BCI080`)
+  - Claudia Jesuraj (USN: `01FE23BCI073`)
+  - Abhishek Manage (USN: `01FE23BCI116`)
 - **Faculty Course Author & Project Mentor:** Dr. Uday Kulkarni (Professor, School of CSE)
 - **Faculty Course Reviewer:** Dr. Narayan D.G (Professor, School of CSE)
 - **Date of Submission:** November 2026
