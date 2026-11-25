@@ -234,21 +234,9 @@ AURA's agentic methodology is governed strictly by the **Deterministic Authority
 
 Figure 10.1 details the multi-stage document ingestion and vector retrieval pipeline:
 
-```mermaid
-flowchart LR
-    PDF["Syllabus PDF"] --> Docling["Docling Parser (:5001)"]
-    Docling --> Chunker["Semantic Markdown Chunker (512 tokens)"]
-    Chunker --> BGEM3["BGE-M3 Embedder (:8002)"]
-    BGEM3 --> PGVector[("pgvector HNSW (1024-d, cosine)")]
-    
-    Query["Topic Query"] --> Rewriter["Query Expansion Agent"]
-    Rewriter --> Ret["Hybrid Dense Retrieval"]
-    PGVector --> Ret
-    Ret --> Grader["Retrieval Grader (Threshold >= 0.70)"]
-    Grader --> Reranker["Cross-Encoder Reranker"]
-    Reranker --> Synthesizer["Grounded Question Generator"]
-    Synthesizer --> DraftQ["Draft Question with Provenance Citation"]
-```
+![Figure 10.1: Multi-Stage Document Ingestion and Grounded Agentic RAG Pipeline](assets/fig10_1_rag_pipeline.svg)
+
+*Figure 10.1: Multi-Stage Document Ingestion and Citation-Grounded Agentic RAG Pipeline.*
 
 ---
 
@@ -256,33 +244,9 @@ flowchart LR
 
 The examination lifecycle is modeled as a strictly enforced finite state machine. Figure 11.1 illustrates the state progression:
 
-```mermaid
-stateDiagram-v2
-    [*] --> DRAFT : Faculty Creates Exam
-    DRAFT --> BLUEPRINT_SUBMITTED : Blueprint Assembled
-    BLUEPRINT_SUBMITTED --> RATIFIED : COE Approves (HITL)
-    RATIFIED --> SCHEDULED : Timetable Published
-    
-    state SCHEDULED {
-        [*] --> Eligible : OPA Check Passed
-        Eligible --> Paired : Companion Verified (:4200)
-    }
-    
-    Paired --> IN_PROGRESS : Candidate Starts Exam
-    
-    state IN_PROGRESS {
-        [*] --> Answering
-        Answering --> HeartbeatOK : Heartbeat < 15s
-        HeartbeatOK --> Answering
-        Answering --> AutoFinalized : Heartbeat Lapse > 15s
-    }
-    
-    AutoFinalized --> SUBMITTED : Stored with Reason
-    Answering --> SUBMITTED : Candidate Submits
-    SUBMITTED --> EVALUATED : Deterministic + Faculty Grading
-    EVALUATED --> PUBLISHED : COE Releases Results (HITL)
-    PUBLISHED --> [*]
-```
+![Figure 11.1: Authoritative Examination Lifecycle Finite State Machine](assets/fig11_1_exam_state_machine.svg)
+
+*Figure 11.1: Authoritative Examination Lifecycle Finite State Machine Governing State Transitions.*
 
 ---
 
@@ -303,25 +267,9 @@ The native Linux proctor companion (`packages/proctor-companion`) runs as a low-
 
 Figure 13.1 illustrates the execution boundary of the Linux Bubblewrap sandbox judge (`apps/web/src/lib/coding/bwrapJudge.ts`):
 
-```mermaid
-flowchart TD
-    Req["POST /api/coding/run or /submit"] --> Guard["Proctor Heartbeat Guard"]
-    Guard --> Fetch["Fetch Secret Hidden Test Cases"]
-    Fetch --> Bwrap["Launch Bubblewrap Sandbox (bwrap)"]
-    
-    subgraph Sandbox["Bubblewrap Isolated Namespace"]
-        Flags["--unshare-all (PID, NET, IPC, MOUNT)"]
-        ROBinds["--ro-bind /usr /usr, --ro-bind /lib /lib"]
-        TmpFS["--tmpfs /tmp (Isolated Scratch Space)"]
-        Execution["Execute User Code (Python/C++/Java)"]
-    end
-    
-    Bwrap --> Sandbox
-    Sandbox --> Capture["Capture stdout, stderr, exitCode, durationMs"]
-    Capture --> Normalizer["CRLF & Trailing Space Normalizer"]
-    Normalizer --> Evaluator["Weighted / All-or-Nothing Scorer"]
-    Evaluator --> Result["Mark Allocation & Candidate Response"]
-```
+![Figure 13.1: Bubblewrap (bwrap) Isolated Coding Execution Engine Architecture](assets/fig13_1_bwrap_sandbox.svg)
+
+*Figure 13.1: Execution Boundary and Kernel Isolation Pipeline of the Bubblewrap Coding Judge.*
 
 ### Empirical Performance Benchmarks:
 - **Sandbox Startup Overhead:** 4–6 ms

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1360 594" width="1360" height="594" style="background:#FFFFFF; font-family: 'Liberation Sans', 'DejaVu Sans', Arial, sans-serif;">
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#1E293B"/>
+    </marker>
+    <marker id="arr-teal" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#0F766E"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="1360" height="594" fill="#FFFFFF"/>
+  <text x="28" y="32" font-size="16" font-weight="700" fill="#0F172A">AURA — Bubblewrap (bwrap) Isolated Coding Execution Engine (bwrapJudge.ts)</text>
+  <rect x="28" y="50" width="1304" height="130" rx="6" fill="#EFF6FF" stroke="#475569" stroke-width="1.3"/>
+  <text x="46" y="72" font-size="11.5" font-weight="700" fill="#1E293B">STAGE 1: AUTHENTICATED CODING REQUEST &amp; PROCTOR PRE-GUARDS</text>
+  <rect x="46" y="88" width="260" height="78" rx="5" fill="#FFFFFF" stroke="#475569" stroke-width="1.25"/>
+  <text x="176.0" y="112" text-anchor="middle" font-size="13" font-weight="700" fill="#0F172A">POST /api/coding/run | /submit</text>
+  <text x="176.0" y="131" text-anchor="middle" font-size="10.5" font-weight="600" fill="#334155">Candidate Source Payload</text>
+  <text x="176.0" y="148" text-anchor="middle" font-size="10.0" font-weight="400" fill="#475569">Authenticated Exam Session</text>
+  <rect x="380" y="88" width="260" height="78" rx="5" fill="#FFFFFF" stroke="#475569" stroke-width="1.25"/>
+  <text x="510.0" y="112" text-anchor="middle" font-size="13" font-weight="700" fill="#0F172A">Proctor Heartbeat Guard</text>
+  <text x="510.0" y="131" text-anchor="middle" font-size="10.5" font-weight="600" fill="#334155">Verifies Active Lease (&lt; 15s)</text>
+  <text x="510.0" y="148" text-anchor="middle" font-size="10.0" font-weight="400" fill="#475569">Rejects Disconnected Attempts</text>
+  <rect x="714" y="88" width="266" height="78" rx="5" fill="#FFFFFF" stroke="#475569" stroke-width="1.25"/>
+  <text x="847.0" y="112" text-anchor="middle" font-size="13" font-weight="700" fill="#0F172A">Fetch Secret Hidden Tests</text>
+  <text x="847.0" y="131" text-anchor="middle" font-size="10.5" font-weight="600" fill="#334155">Server-Side Test Case Store</text>
+  <text x="847.0" y="148" text-anchor="middle" font-size="10.0" font-weight="400" fill="#475569">Hidden Assertions Never Exposed</text>
+  <rect x="1054" y="88" width="260" height="78" rx="5" fill="#FFFFFF" stroke="#475569" stroke-width="1.25"/>
+  <text x="1184.0" y="112" text-anchor="middle" font-size="13" font-weight="700" fill="#0F172A">Launch Bubblewrap (bwrap)</text>
+  <text x="1184.0" y="131" text-anchor="middle" font-size="10.5" font-weight="600" fill="#334155">Spawns Subprocess Wrapper</text>
+  <text x="1184.0" y="148" text-anchor="middle" font-size="10.0" font-weight="400" fill="#475569">4–6 ms Startup Overhead</text>
+  <line x1="306" y1="127" x2="378" y2="127" stroke="#1E293B" stroke-width="1.4" marker-end="url(#arr)"/>
+  <rect x="317.7" y="105" width="50.6" height="17" rx="3" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="0.8"/>
+  <text x="343.0" y="117" text-anchor="middle" font-size="9.8" font-weight="600" fill="#0F172A">Verify</text>
+  <line x1="640" y1="127" x2="712" y2="127" stroke="#1E293B" stroke-width="1.4" marker-end="url(#arr)"/>
+  <rect x="653.0" y="105" width="48.0" height="17" rx="3" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="0.8"/>
+  <text x="677.0" y="117" text-anchor="middle" font-size="9.8" font-weight="600" fill="#0F172A">Fetch</text>
+  <line x1="980" y1="127" x2="1052" y2="127" stroke="#1E293B" stroke-width="1.4" marker-end="url(#arr)"/>
+  <rect x="993.0" y="105" width="48.0" height="17" rx="3" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="0.8"/>
+  <text x="1017.0" y="117" text-anchor="middle" font-size="9.8" font-weight="600" fill="#0F172A">Spawn</text>
+  <rect x="28" y="236" width="1304" height="160" rx="6" fill="#EEF2FF" stroke="#1E293B" stroke-width="1.6"/>
+  <text x="46" y="258" font-size="11.5" font-weight="700" fill="#1E293B">STAGE 2: BUBBLEWRAP ISOLATED NAMESPACE BOUNDARY (bwrap --unshare-all)</text>
+  <rect x="46" y="274" width="796" height="106" rx="5" fill="#F8FAFC" stroke="#64748B" stroke-width="1.1" stroke-dasharray="4,3"/>
+  <text x="62" y="292" font-size="10.2" font-weight="700" fill="#334155">SANDBOX SECURITY CONSTRAINTS (Applied Simultaneously)</text>
+  <rect x="62" y="300" width="240" height="68" rx="5" fill="#FFFFFF" stroke="#475569" stroke-width="1.25"/>
+  <text x="182.0" y="324" text-anchor="middle" font-size="12" font-weight="700" fill="#0F172A">Namespace Unsharing</text>
+  <text x="182.0" y="343" text-anchor="middle" font-size="10" font-weight="600" fill="#334155">--unshare-all (PID/NET/IPC/MNT)</text>
+  <text x="182.0" y="360" text-anchor="middle" font-size="9.5" font-weight="400" fill="#475569">Zero Network / Socket Access</text>
+  <rect x="322" y="300" width="248" height="68" rx="5" fill="#FFFFFF" stroke="#475569" stroke-width="1.25"/>
+  <text x="446.0" y="324" text-anchor="middle" font-size="12" font-weight="700" fill="#0F172A">Read-Only Runtime Binds</text>
+  <text x="446.0" y="343" text-anchor="middle" font-size="10" font-weight="600" fill="#334155">--ro-bind /usr /usr, /lib /lib</text>
+  <text x="446.0" y="360" text-anchor="middle" font-size="9.5" font-weight="400" fill="#475569">Immutable Interpreter &amp; Libs</text>
+  <rect x="590" y="300" width="236" height="68" rx="5" fill="#FFFFFF" stroke="#475569" stroke-width="1.25"/>
+  <text x="708.0" y="324" text-anchor="middle" font-size="12" font-weight="700" fill="#0F172A">Ephemeral Tmpfs Scratch</text>
+  <text x="708.0" y="343" text-anchor="middle" font-size="10" font-weight="600" fill="#334155">--tmpfs /tmp (Isolated RAM)</text>
+  <text x="708.0" y="360" text-anchor="middle" font-size="9.5" font-weight="400" fill="#475569">256 MB Memory Ceiling</text>
+  <rect x="924" y="274" width="390" height="106" rx="5" fill="#FFFFFF" stroke="#1E293B" stroke-width="1.25"/>
+  <text x="1119.0" y="298" text-anchor="middle" font-size="13" font-weight="700" fill="#0F172A">Execute Untrusted User Code</text>
+  <text x="1119.0" y="317" text-anchor="middle" font-size="10.5" font-weight="600" fill="#334155">Python / C++ / Java Inside Isolated Sandbox</text>
+  <text x="1119.0" y="334" text-anchor="middle" font-size="10.0" font-weight="400" fill="#475569">16–25 ms Avg · Hard Termination @ 400 ms CPU</text>
+  <line x1="842" y1="327" x2="922" y2="327" stroke="#1E293B" stroke-width="1.4" marker-end="url(#arr)"/>
+  <rect x="854.6" y="305" width="56.7" height="17" rx="3" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="0.8"/>
+  <text x="883.0" y="317" text-anchor="middle" font-size="9.8" font-weight="600" fill="#0F172A">Enforce</text>
+  <polyline points="1184,166 1184,272" fill="none" stroke="#1E293B" stroke-width="1.4" marker-end="url(#arr)"/>
+  <rect x="1135.7" y="201" width="96.6" height="18" rx="3" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="0.8"/>
+  <text x="1184" y="213.5" text-anchor="middle" font-size="10" font-weight="600" fill="#0F172A">Spawn Sandbox</text>
+  <rect x="28" y="452" width="1304" height="124" rx="6" fill="#F0FDF4" stroke="#475569" stroke-width="1.3"/>
+  <text x="46" y="474" font-size="11.5" font-weight="700" fill="#1E293B">STAGE 3: STREAM CAPTURE, NORMALIZATION &amp; DETERMINISTIC SCORING</text>
+  <polyline points="1184,380 1184,486" fill="none" stroke="#1E293B" stroke-width="1.4" marker-end="url(#arr)"/>
+  <rect x="1129.5" y="415" width="109.0" height="18" rx="3" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="0.8"/>
+  <text x="1184" y="427.5" text-anchor="middle" font-size="10" font-weight="600" fill="#0F172A">Capture Outputs</text>
+  <rect x="1046" y="488" width="268" height="76" rx="5" fill="#FFFFFF" stroke="#475569" stroke-width="1.25"/>
+  <text x="1180.0" y="512" text-anchor="middle" font-size="13" font-weight="700" fill="#0F172A">Capture Process Outputs</text>
+  <text x="1180.0" y="531" text-anchor="middle" font-size="10.5" font-weight="600" fill="#334155">stdout, stderr, exitCode</text>
+  <text x="1180.0" y="548" text-anchor="middle" font-size="10.0" font-weight="400" fill="#475569">Exact durationMs Telemetry</text>
+  <rect x="710" y="488" width="266" height="76" rx="5" fill="#FFFFFF" stroke="#475569" stroke-width="1.25"/>
+  <text x="843.0" y="512" text-anchor="middle" font-size="13" font-weight="700" fill="#0F172A">Output Normalizer</text>
+  <text x="843.0" y="531" text-anchor="middle" font-size="10.5" font-weight="600" fill="#334155">CRLF -&gt; LF Conversion</text>
+  <text x="843.0" y="548" text-anchor="middle" font-size="10.0" font-weight="400" fill="#475569">Trailing Whitespace Strip</text>
+  <rect x="376" y="488" width="264" height="76" rx="5" fill="#FFFFFF" stroke="#475569" stroke-width="1.25"/>
+  <text x="508.0" y="512" text-anchor="middle" font-size="13" font-weight="700" fill="#0F172A">Deterministic Scorer</text>
+  <text x="508.0" y="531" text-anchor="middle" font-size="10.5" font-weight="600" fill="#334155">Weighted &amp; All-or-Nothing</text>
+  <text x="508.0" y="548" text-anchor="middle" font-size="10.0" font-weight="400" fill="#475569">Test Assertion Matcher</text>
+  <rect x="46" y="488" width="260" height="76" rx="5" fill="#FFFFFF" stroke="#475569" stroke-width="1.25"/>
+  <text x="176.0" y="512" text-anchor="middle" font-size="13" font-weight="700" fill="#0F172A">Mark Allocation &amp; Response</text>
+  <text x="176.0" y="531" text-anchor="middle" font-size="10.5" font-weight="600" fill="#334155">Atomic Score Commit (PostgreSQL)</text>
+  <text x="176.0" y="548" text-anchor="middle" font-size="10.0" font-weight="400" fill="#475569">Safe Verdict to Candidate UI</text>
+  <line x1="1046" y1="526" x2="978" y2="526" stroke="#1E293B" stroke-width="1.4" marker-end="url(#arr)"/>
+  <rect x="982.6" y="504" width="56.7" height="17" rx="3" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="0.8"/>
+  <text x="1011.0" y="516" text-anchor="middle" font-size="9.8" font-weight="600" fill="#0F172A">Raw Out</text>
+  <line x1="710" y1="526" x2="642" y2="526" stroke="#1E293B" stroke-width="1.4" marker-end="url(#arr)"/>
+  <rect x="637.5" y="504" width="75.0" height="17" rx="3" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="0.8"/>
+  <text x="675.0" y="516" text-anchor="middle" font-size="9.8" font-weight="600" fill="#0F172A">Normalized</text>
+  <line x1="376" y1="526" x2="308" y2="526" stroke="#1E293B" stroke-width="1.4" marker-end="url(#arr)"/>
+  <rect x="291.3" y="504" width="99.4" height="17" rx="3" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="0.8"/>
+  <text x="341.0" y="516" text-anchor="middle" font-size="9.8" font-weight="600" fill="#0F172A">Verified Marks</text>
+</svg>
