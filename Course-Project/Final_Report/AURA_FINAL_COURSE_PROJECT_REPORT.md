@@ -210,46 +210,11 @@ Table 7.1 provides an engineering comparison between traditional examination pla
 
 # 8. PROPOSED SYSTEM ARCHITECTURE
 
-AURA is engineered as a distributed, service-oriented multi-agent system. Figure 8.1 illustrates the comprehensive server-client architecture:
+AURA is engineered as a distributed, service-oriented multi-agent system. Figure 8.1 illustrates the comprehensive five-layer server-client architecture and deterministic authority boundaries:
 
-```mermaid
-flowchart TB
-    subgraph Clients["Client Layer (Web Portals & Native Edge)"]
-        COE["COE Admin Portal (:33255/coe)"]
-        FAC["Faculty Portal (:33255/faculty)"]
-        STU["Candidate Portal (:33255/student)"]
-        INV["Invigilator Portal (:33255/invigilator)"]
-        COMP["Edge Companion (:4200 / Linux)"]
-    end
+![Figure 8.1: Clean Five-Layer System Architecture and Deterministic Authority Flow of the AURA Platform](assets/aura_system_architecture.svg)
 
-    subgraph Gateway["API Gateway & Core Web Application (Next.js 14)"]
-        Auth["JWT / Argon2id Auth Engine"]
-        Router["Route Handlers & RBAC Guards"]
-        CodingAPI["Coding Run/Submit APIs"]
-        ExportAPI["CWE-1236 CSV Engine"]
-    end
-
-    subgraph AgenticWorkers["Agentic AI & Worker Subsystem"]
-        Coord["AURA Coordinator Agent"]
-        MCP["MCP Connector (JSON-RPC 2.0)"]
-        Docling["Docling Document Parser (:5001)"]
-        BGE["BGE-M3 Vector Worker (:8002)"]
-        OPA["OPA Policy Engine (:18181)"]
-        Bwrap["Bubblewrap Sandbox Judge"]
-        Reaper["Heartbeat Reaper Daemon (5s)"]
-    end
-
-    subgraph DataStore["Authoritative Data & State Tier (PostgreSQL 15)"]
-        Postgres[("Relational Tables: 21 Migrations")]
-        PGVector[("pgvector HNSW Cosine Index")]
-        AuditTrail[("Append-Only Audit Log")]
-    end
-
-    Clients <--> Gateway
-    Gateway <--> AgenticWorkers
-    Gateway <--> DataStore
-    AgenticWorkers <--> DataStore
-```
+*Figure 8.1: Clean Five-Layer System Architecture and Deterministic Authority Flow of the AURA Platform.*
 
 ---
 
